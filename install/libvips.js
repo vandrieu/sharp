@@ -150,7 +150,7 @@ try {
     // Node.js minimum version check
     const supportedNodeVersion = process.env.npm_package_engines_node || require('../package.json').engines.node;
     if (!semverSatisfies(process.versions.node, supportedNodeVersion)) {
-      handleError(new Error(`Expected Node.js version ${supportedNodeVersion} but found ${process.versions.node}`));
+      libvips.log(`Ignoring problem: Expected Node.js version ${supportedNodeVersion} but found ${process.versions.node}`);
     }
 
     // Download to per-process temporary file
@@ -192,7 +192,7 @@ try {
               // Clean up temporary file
               try {
                 fs.unlinkSync(tarPathTemp);
-              } catch (e) {}
+              } catch (e) { }
               fail(err);
             })
             .on('close', function () {
